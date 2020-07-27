@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: quarkus-sample
+  name: quarkus-sample
+spec:
+  selector:
+    matchLabels:
+      app: quarkus-sample
+  template:
+    metadata:
+      labels:
+        app: quarkus-sample
+    spec:
+      containers:
+        - image: quarkus-sample-jvm:latest
+          name: quarkus-app
+          env:
+            - name: MY_ADDRESS
+              value: "Tel-Aviv"
+            - name: HIGH_TEMP
+              value: "32.0"
+            - name: MY_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: sensor-gateway-config
+                  key: gateway_hostname
+          livenessProbe:
+            httpGet:
+              path: /health/live
+              port: 8080
+            initialDelaySeconds: 1
+            periodSeconds: 15
+            timeoutSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /health/ready
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 5
