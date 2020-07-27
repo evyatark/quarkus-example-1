@@ -4,6 +4,7 @@ import com.allot.nx.entity.Person;
 import com.allot.nx.service.AddSomeData;
 import com.allot.nx.service.PersonService;
 import io.quarkus.runtime.Quarkus;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,11 +26,14 @@ public class ExampleResource {
     @Inject
     PersonService personService;
 
+    @ConfigProperty(defaultValue = "World!", name = "my.name")
+    String name ;
+
     @GET
     @Path("/hello")
     @Produces(MediaType.TEXT_PLAIN)
     public String hello() {
-        return "hello\n";
+        return "hello " + name + "\n";
     }
 
     /**

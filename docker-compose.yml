@@ -19,5 +19,7 @@ services:
       - 8080
     ports:
       - "8080:8080"
+    environment:
+      MY_NAME: "Evyatar"
     depends_on:
       - postgres

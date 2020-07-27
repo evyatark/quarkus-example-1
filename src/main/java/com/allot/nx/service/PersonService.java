@@ -62,7 +62,7 @@ public class PersonService {
     }
 
     @Counted(name = "count_ComputeAge")
-    private int age(Person person) {
+    public int age(Person person) {     // must be public in order to be counted!
         return (LocalDate.now().getYear() - person.birthDate.getYear());
     }
 

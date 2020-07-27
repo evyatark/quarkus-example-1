@@ -58,6 +58,31 @@ Note that for this to work, you should change in application.properties the jdbc
 the second "postgres" is the name of the schema inside the DB.
 In other environment (for example: dev), the jdbc url could be `quarkus.datasource.jdbc.url=jdbc:postgresql://localhost:5432/mydatabase`)
 
+
+## Metrics
+from command line, use `curl -H "Accept: application/json" http://localhost:8080/metrics/application` to see metrics (of application).
+base, vendor.
+
+curl localhost:8080/person/age/average
+
+http --json http://localhost:8080/metrics/vendor | grep 'hibernate' | grep orm
+
+http --json http://localhost:8080/metrics | grep method=averageAge
+
+## Config
+
+in Java code:
+    @ConfigProperty(defaultValue = "World!", name = "my.name")
+    String name ;
+
+in docker-compose.yml added:
+environment:
+      MY_NAME: "Evyatar"
+
+docker-compose up
+then
+http http://localhost:8080/ex/hello
+
 ## Packaging and running the application
 
 The application can be packaged using `./mvnw package`.
