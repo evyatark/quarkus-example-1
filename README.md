@@ -9,8 +9,8 @@ In staging - the JVM of the app and the docker image of the database will both r
 
 In production - the JVM and the database will run in Kubernetes.
 
-database
-PostgreSQL running in docker image.
+# database
+## PostgreSQL running in docker image.
 
 `docker run -d --rm --name=postgresdb  -p5432:5432 --env POSTGRES_PASSWORD=mypassword --volume /home/evyatar/work/quarkus/news-quarkus/src/main/resources/init:/docker-entrypoint-initdb.d/ postgres:11-alpine`
 
@@ -31,6 +31,32 @@ You can run your application in dev mode that enables live coding using:
 ```
 ./mvnw quarkus:dev
 ```
+but before that, you must run the docker of the database as explained above.
+
+## Running the application in "staging" mode with docker-compose
+docker-compose can be used to start all services (in this example: the database and the app) in docker on the same ("private") network.
+
+To do that, use the docker-compose.yml
+and issue the command
+docker-compose up
+
+(this builds the docker of the quarkus-app:)
+```shell script
+export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+mvn package -DskipTests
+docker build -f src/main/docker/Dockerfile.jvm -t quarkus-sample-jvm .
+docker-compose up
+```
+
+You will see in the terminal window the logs from the quarkus app!
+Hit Ctrl+C to stop all the services (in this case only 2 - the database and the app)
+
+Note that for this to work, you should change in application.properties the jdbc url:
+
+`quarkus.datasource.url = jdbc:postgresql://postgres:5432/postgres`
+(the first "postgres" is the name of the service in docker-compose.yml.
+the second "postgres" is the name of the schema inside the DB.
+In other environment (for example: dev), the jdbc url could be `quarkus.datasource.jdbc.url=jdbc:postgresql://localhost:5432/mydatabase`)
 
 ## Packaging and running the application
 

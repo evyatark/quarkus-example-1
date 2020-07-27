@@ -1,0 +1,24 @@
+version: '2'
+services:
+
+  postgres:
+    image: postgres:11-alpine
+    container_name: "postgres-database"
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: "mypassword"
+    volumes:
+      - /home/evyatar/work/quarkus/news-quarkus/src/main/resources/init:/docker-entrypoint-initdb.d/
+
+  my-quarkus-app:
+    container_name: quarkus-app
+    image: quarkus-sample-jvm:latest
+    entrypoint: /deployments/run-java.sh
+    expose:
+      - 8080
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+
