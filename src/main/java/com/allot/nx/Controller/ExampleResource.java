@@ -3,6 +3,9 @@ package com.allot.nx.Controller;
 import com.allot.nx.entity.Person;
 import com.allot.nx.service.AddSomeData;
 import com.allot.nx.service.PersonService;
+import io.quarkus.runtime.Quarkus;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;
@@ -14,6 +17,8 @@ import java.util.List;
 @Path("/ex")
 public class ExampleResource {
 
+    private Logger logger = LoggerFactory.getLogger(ExampleResource.class);
+
     @Inject
     AddSomeData addSomeData;
 
@@ -24,8 +29,23 @@ public class ExampleResource {
     @Path("/hello")
     @Produces(MediaType.TEXT_PLAIN)
     public String hello() {
-        return "hello";
+        return "hello\n";
     }
+
+    /**
+     * Shut down the application, but not the database service!
+     * @return
+     */
+    @GET
+    @Path("/shutdown")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String shutMeDown() {
+        logger.warn("shuting down the app in 5 seconds...");
+        //System.exit(1);
+        Quarkus.asyncExit(-1);
+        return "app was shutdown\n";    // this will never happen! so the client HTTP call will not receive a response
+    }
+
 
     @GET
     @Path("/init")

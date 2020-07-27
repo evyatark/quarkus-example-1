@@ -96,4 +96,13 @@ public class PersonResource {
     public List<Person> getAllPersonsBornAfterYear(@PathParam("year") Integer year) {
         return personService.findBornAfter(year);
     }
+
+
+    @GET
+    @Path("/age/average")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Double averageAge() {
+        return personService.calculateAverageOfAgesOfPersonsBornAfter(1800);
+    }
+
 }

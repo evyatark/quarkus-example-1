@@ -2,6 +2,9 @@ package com.allot.nx.service;
 
 import com.allot.nx.dao.PersonDao;
 import com.allot.nx.entity.Person;
+import org.eclipse.microprofile.metrics.MetricUnits;
+import org.eclipse.microprofile.metrics.annotation.Counted;
+import org.eclipse.microprofile.metrics.annotation.Timed;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -41,4 +44,26 @@ public class PersonService {
         List<Person> result = personDao.findBornAfter(localDate);
         return result;
     }
+
+
+
+    @Counted
+    @Timed(name = "timeCalculateAverageOfAgesOfPersonsBornAfter", description = "Times how long it takes to calculate Average Of Ages Of Persons Born After specified year", unit = MetricUnits.MILLISECONDS)
+    public double calculateAverageOfAgesOfPersonsBornAfter(int year) {
+        List<Person> persons = personDao.findBornAfter(LocalDate.of(year, 12, 31));
+        int count = persons.size();
+        int sum = 0 ;
+        for (Person person : persons) {
+            int age = age(person);
+            sum = sum + age ;
+        }
+        double average = sum / count ;
+        return average;
+    }
+
+    @Counted(name = "count_ComputeAge")
+    private int age(Person person) {
+        return (LocalDate.now().getYear() - person.birthDate.getYear());
+    }
+
 }
