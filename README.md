@@ -44,7 +44,7 @@ docker-compose up
 ```shell script
 export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
 mvn package -DskipTests
-docker build -f src/main/docker/Dockerfile.jvm -t quarkus-sample-jvm .
+docker build -f src/main/docker/Dockerfile.jvm -t quarkus-sample-jvm:v1 .
 docker-compose up
 ```
 

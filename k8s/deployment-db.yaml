@@ -1,0 +1,42 @@
+---
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  labels:
+    app: "postgres-app"
+    version: "01"
+    group: "Group1"
+  name: "postgres-app"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "postgres-app"
+      version: "01"
+      group: "Group1"
+  template:
+    metadata:
+      labels:
+        app: "postgres-app"
+        version: "01"
+        group: "Group1"
+    spec:
+      containers:
+        - image: "postgres:11-alpine"
+          imagePullPolicy: "IfNotPresent"
+          name: "postgres-app"
+          ports:
+            - containerPort: 5432
+              name: "http"
+              protocol: "TCP"
+          env:
+            - name: "KUBERNETES_NAMESPACE"
+              valueFrom:
+                fieldRef:
+                  fieldPath: "metadata.namespace"
+
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: my-config
+                  key: postgres.password

@@ -43,7 +43,7 @@ items:
             group: "Group1"
         spec:
           containers:
-            - image: "quarkus-sample-jvm:latest"
+            - image: "quarkus-sample-jvm:v1"
               imagePullPolicy: "IfNotPresent"
               name: "quarkus-app"
               ports:
