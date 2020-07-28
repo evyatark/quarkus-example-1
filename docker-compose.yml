@@ -24,6 +24,16 @@ services:
     depends_on:
       - postgres
 
+  grafana:
+    image: grafana/grafana
+    network_mode: 'host' # On Linux, this is required to let Prometheus access the other containers.
+    container_name: "grafana1"
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    volumes:
+      - ./src/main/resources/monitoring:/var/lib/grafana
+
   monitoring:
     image: "prom/prometheus"
     network_mode: 'host' # On Linux, this is required to let Prometheus access the other containers.
@@ -32,15 +42,3 @@ services:
       - 9090:9090
     volumes:
       - ./src/main/resources/monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
-
-  grafana:
-    image: grafana/grafana
-    container_name: grafana
-    restart: always
-    ports:
-      - '3000:3000'
-    environment:
-      - GF_SECURITY_ADMIN_USER=admin
-      - GF_SECURITY_ADMIN_PASSWORD=admin
-      - GF_USERS_ALLOW_SIGN_UP=false
-      - GF_ALERTING_ERROR_OR_TIMEOUT=keep_state
