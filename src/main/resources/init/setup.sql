@@ -14,3 +14,21 @@ CREATE TABLE IF NOT EXISTS event
   steps_count INTEGER,
   PRIMARY KEY (device_id, device_sync)
 );
+
+create table person
+(
+	id bigint not null
+		constraint person_pkey
+			primary key,
+	alive boolean,
+	birthdate date,
+	familyname varchar(30),
+	name varchar(60),
+	personid varchar(100)
+		constraint uk_a637w7xjbjewfms7mu5rtok0t
+			unique,
+	privatename varchar(20)
+);
+
+alter table person owner to postgres;
+

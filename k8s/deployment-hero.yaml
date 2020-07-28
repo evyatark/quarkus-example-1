@@ -29,7 +29,7 @@ items:
         group: "Group1"
       name: "quarkus-app"
     spec:
-      replicas: 1
+      replicas: 3
       selector:
         matchLabels:
           app: "quarkus-app"
@@ -43,8 +43,7 @@ items:
             group: "Group1"
         spec:
           containers:
-            - image: "quarkus-sample-jvm:v1"
-              imagePullPolicy: "IfNotPresent"
+            - image: "evyatark/quarkus-sample-jvm:v2"
               name: "quarkus-app"
               ports:
                 - containerPort: 8080
@@ -67,3 +66,9 @@ items:
                     configMapKeyRef:
                       name: my-config
                       key: port
+
+                - name: MY_NAME
+                  valueFrom:
+                    configMapKeyRef:
+                      name: my-config
+                      key: "my.name"

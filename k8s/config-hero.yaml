@@ -1,7 +1,7 @@
 apiVersion: v1
 data:
     port: "8080"
-    database: "jdbc:postgresql://postgres-database:5432/postgres"
+    database: "jdbc:postgresql://postgres-app:5432/postgres"
     postgres.password: "mypassword"
 kind: ConfigMap
 metadata:

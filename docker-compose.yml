@@ -20,6 +20,26 @@ services:
     ports:
       - "8080:8080"
     environment:
-      MY_NAME: "Evyatar"
+      MY_NAME: "Guy"
+    restart: always
     depends_on:
       - postgres
+
+  grafana:
+    image: grafana/grafana
+    network_mode: 'host' # On Linux, this is required to let Prometheus access the other containers.
+    container_name: "grafana1"
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    volumes:
+      - ./src/main/resources/monitoring:/var/lib/grafana
+
+  monitoring:
+    image: "prom/prometheus"
+    network_mode: 'host' # On Linux, this is required to let Prometheus access the other containers.
+    container_name: "super-visor"
+    ports:
+      - 9090:9090
+    volumes:
+      - ./src/main/resources/monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
