@@ -11,11 +11,23 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.IntStream;
 
 @ApplicationScoped
 public class AddSomeData {
 
     private Logger logger = LoggerFactory.getLogger(AddSomeData.class);
+
+    @Transactional
+    public void doAddMoreData(int numberOfPersons) {
+        logger.info("doAddMoreData started");
+        if (numberOfPersons > 27) {
+            numberOfPersons = 27;
+        }
+        for (int day : IntStream.range(1, 1+numberOfPersons).toArray()) {
+            (new Person("Elvis Presley", "Elvis Aaron", "Presley", LocalDate.of(1935, Month.JANUARY, day), false)).persist();
+        }
+    }
 
     @Transactional
     public void doAddSomeDataToDatabase() {

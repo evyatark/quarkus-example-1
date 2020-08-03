@@ -57,7 +57,10 @@ public class PersonService {
             int age = age(person);
             sum = sum + age ;
         }
-        double average = sum / count ;
+        double average = 0.0;
+        if (count > 0) {
+            average = sum / count;
+        }
         return average;
     }
 

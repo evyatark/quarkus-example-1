@@ -29,7 +29,7 @@ items:
         group: "Group1"
       name: "quarkus-app"
     spec:
-      replicas: 1
+      replicas: 2
       selector:
         matchLabels:
           app: "quarkus-app"
@@ -43,7 +43,7 @@ items:
             group: "Group1"
         spec:
           containers:
-            - image: "evyatark/quarkus-sample-jvm:v2"
+            - image: "evyatark/quarkus-sample-jvm:v9"
               name: "quarkus-app"
               ports:
                 - containerPort: 8080

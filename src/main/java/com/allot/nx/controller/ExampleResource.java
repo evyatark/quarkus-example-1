@@ -1,4 +1,4 @@
-package com.allot.nx.Controller;
+package com.allot.nx.controller;
 
 import com.allot.nx.entity.Person;
 import com.allot.nx.service.AddSomeData;
