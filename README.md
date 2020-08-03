@@ -90,6 +90,16 @@ evyatar@evyatar-xps:~/work/allot/quarkus-sample-1/quarkus-sample$ minikube servi
 Opening service default/my-service in default browser...
 
 
+kubectl get service/my-service -o json
+kubectl get service/my-service -o jsonpath="{.spec.ports[*].nodePort}"
+
+
+IP=$(minikube ip)
+PORT=$(kubectl get service/my-service -o jsonpath="{.spec.ports[*].nodePort}")
+echo $IP:$PORT
+curl $IP:$PORT/ex/hello
+
+
 edited deployment-hero.yaml, changed replicas from 1 to 3.
 then:
 evyatar@evyatar-xps:~/work/allot/quarkus-sample-1/quarkus-sample$ kubectl apply -f k8s/deployment-hero.yaml
