@@ -1,0 +1,151 @@
+vendor_hibernate_orm_collections_fetched_total 0.0
+# HELP vendor_hibernate_orm_collections_loaded_total Global number of collections loaded
+# TYPE vendor_hibernate_orm_collections_loaded_total counter
+vendor_hibernate_orm_collections_loaded_total 0.0
+# HELP vendor_hibernate_orm_collections_recreated_total Global number of collections recreated
+# TYPE vendor_hibernate_orm_collections_recreated_total counter
+vendor_hibernate_orm_collections_recreated_total 0.0
+# HELP vendor_hibernate_orm_collections_removed_total Global number of collections removed
+# TYPE vendor_hibernate_orm_collections_removed_total counter
+vendor_hibernate_orm_collections_removed_total 0.0
+# HELP vendor_hibernate_orm_collections_updated_total Global number of collections updated
+# TYPE vendor_hibernate_orm_collections_updated_total counter
+vendor_hibernate_orm_collections_updated_total 0.0
+# HELP vendor_hibernate_orm_connections_obtained_total Get the global number of connections asked by the sessions (the actual number of connections used may be much smaller depending whether you use a connection pool or not)
+# TYPE vendor_hibernate_orm_connections_obtained_total counter
+vendor_hibernate_orm_connections_obtained_total 0.0
+# HELP vendor_hibernate_orm_entities_deleted_total Global number of entity deletes
+# TYPE vendor_hibernate_orm_entities_deleted_total counter
+vendor_hibernate_orm_entities_deleted_total 0.0
+# HELP vendor_hibernate_orm_entities_fetched_total Global number of entity fetches
+# TYPE vendor_hibernate_orm_entities_fetched_total counter
+vendor_hibernate_orm_entities_fetched_total 0.0
+# HELP vendor_hibernate_orm_entities_inserted_total Global number of entity inserts
+# TYPE vendor_hibernate_orm_entities_inserted_total counter
+vendor_hibernate_orm_entities_inserted_total 0.0
+# HELP vendor_hibernate_orm_entities_loaded_total Global number of entity loads
+# TYPE vendor_hibernate_orm_entities_loaded_total counter
+vendor_hibernate_orm_entities_loaded_total 0.0
+# HELP vendor_hibernate_orm_entities_updated_total Global number of entity updates
+# TYPE vendor_hibernate_orm_entities_updated_total counter
+vendor_hibernate_orm_entities_updated_total 0.0
+# HELP vendor_hibernate_orm_flushes_total Global number of flush operations executed (either manual or automatic).
+# TYPE vendor_hibernate_orm_flushes_total counter
+vendor_hibernate_orm_flushes_total 0.0
+# HELP vendor_hibernate_orm_natural_id_cache_hits_total Global number of cached natural id lookups successfully retrieved from cache
+# TYPE vendor_hibernate_orm_natural_id_cache_hits_total counter
+vendor_hibernate_orm_natural_id_cache_hits_total 0.0
+# HELP vendor_hibernate_orm_natural_id_cache_misses_total Global number of cached natural id lookups *not* found in cache
+# TYPE vendor_hibernate_orm_natural_id_cache_misses_total counter
+vendor_hibernate_orm_natural_id_cache_misses_total 0.0
+# HELP vendor_hibernate_orm_natural_id_cache_puts_total Global number of cacheable natural id lookups put in cache
+# TYPE vendor_hibernate_orm_natural_id_cache_puts_total counter
+vendor_hibernate_orm_natural_id_cache_puts_total 0.0
+# HELP vendor_hibernate_orm_natural_id_queries_executions_total Global number of natural id queries executed against the database
+# TYPE vendor_hibernate_orm_natural_id_queries_executions_total counter
+vendor_hibernate_orm_natural_id_queries_executions_total 0.0
+# HELP vendor_hibernate_orm_optimistic_lock_failures_total The number of Hibernate StaleObjectStateExceptions or JPA OptimisticLockExceptions that occurred.
+# TYPE vendor_hibernate_orm_optimistic_lock_failures_total counter
+vendor_hibernate_orm_optimistic_lock_failures_total 0.0
+# HELP vendor_hibernate_orm_queries_executed_total Global number of executed queries
+# TYPE vendor_hibernate_orm_queries_executed_total counter
+vendor_hibernate_orm_queries_executed_total 0.0
+# HELP vendor_hibernate_orm_query_cache_hits_total Global number of cached queries successfully retrieved from cache
+# TYPE vendor_hibernate_orm_query_cache_hits_total counter
+vendor_hibernate_orm_query_cache_hits_total 0.0
+# HELP vendor_hibernate_orm_query_cache_misses_total Global number of cached queries *not* found in cache
+# TYPE vendor_hibernate_orm_query_cache_misses_total counter
+vendor_hibernate_orm_query_cache_misses_total 0.0
+# HELP vendor_hibernate_orm_query_cache_puts_total Global number of cacheable queries put in cache
+# TYPE vendor_hibernate_orm_query_cache_puts_total counter
+vendor_hibernate_orm_query_cache_puts_total 0.0
+# HELP vendor_hibernate_orm_second_level_cache_hits_total Global number of cacheable entities/collections successfully retrieved from the cache
+# TYPE vendor_hibernate_orm_second_level_cache_hits_total counter
+vendor_hibernate_orm_second_level_cache_hits_total 0.0
+# HELP vendor_hibernate_orm_second_level_cache_misses_total Global number of cacheable entities/collections not found in the cache and loaded from the database.
+# TYPE vendor_hibernate_orm_second_level_cache_misses_total counter
+vendor_hibernate_orm_second_level_cache_misses_total 0.0
+# HELP vendor_hibernate_orm_second_level_cache_puts_total Global number of cacheable entities/collections put in the cache
+# TYPE vendor_hibernate_orm_second_level_cache_puts_total counter
+vendor_hibernate_orm_second_level_cache_puts_total 0.0
+# HELP vendor_hibernate_orm_sessions_closed_total Global number of sessions closed
+# TYPE vendor_hibernate_orm_sessions_closed_total counter
+vendor_hibernate_orm_sessions_closed_total 0.0
+# HELP vendor_hibernate_orm_sessions_open_total Global number of sessions opened
+# TYPE vendor_hibernate_orm_sessions_open_total counter
+vendor_hibernate_orm_sessions_open_total 0.0
+# HELP vendor_hibernate_orm_statements_closed_total The number of prepared statements that were released
+# TYPE vendor_hibernate_orm_statements_closed_total counter
+vendor_hibernate_orm_statements_closed_total 0.0
+# HELP vendor_hibernate_orm_statements_prepared_total The number of prepared statements that were acquired
+# TYPE vendor_hibernate_orm_statements_prepared_total counter
+vendor_hibernate_orm_statements_prepared_total 0.0
+# HELP vendor_hibernate_orm_timestamps_cache_hits_total Global number of timestamps successfully retrieved from cache
+# TYPE vendor_hibernate_orm_timestamps_cache_hits_total counter
+vendor_hibernate_orm_timestamps_cache_hits_total 0.0
+# HELP vendor_hibernate_orm_timestamps_cache_misses_total Global number of timestamp requests that were not found in the cache
+# TYPE vendor_hibernate_orm_timestamps_cache_misses_total counter
+vendor_hibernate_orm_timestamps_cache_misses_total 0.0
+# HELP vendor_hibernate_orm_timestamps_cache_puts_total Global number of timestamps put in cache
+# TYPE vendor_hibernate_orm_timestamps_cache_puts_total counter
+vendor_hibernate_orm_timestamps_cache_puts_total 0.0
+# HELP vendor_hibernate_orm_transactions_total The number of transactions we know to have completed
+# TYPE vendor_hibernate_orm_transactions_total counter
+vendor_hibernate_orm_transactions_total 0.0
+# HELP vendor_hibernate_orm_transactions_successful_total The number of transactions we know to have been successful
+# TYPE vendor_hibernate_orm_transactions_successful_total counter
+vendor_hibernate_orm_transactions_successful_total 0.0
+
+
+vendor_agroal_acquire_count_total{datasource="default"} 1.0
+# HELP vendor_agroal_active_count Number of active connections. These connections are in use and not available to be acquired.
+# TYPE vendor_agroal_active_count gauge
+vendor_agroal_active_count{datasource="default"} 0.0
+# HELP vendor_agroal_available_count Number of idle connections in the pool, available to be acquired.
+# TYPE vendor_agroal_available_count gauge
+vendor_agroal_available_count{datasource="default"} 1.0
+# HELP vendor_agroal_awaiting_count Approximate number of threads blocked, waiting to acquire a connection.
+# TYPE vendor_agroal_awaiting_count gauge
+vendor_agroal_awaiting_count{datasource="default"} 0.0
+# HELP vendor_agroal_blocking_time_average_seconds Average time an application waited to acquire a connection.
+# TYPE vendor_agroal_blocking_time_average_seconds gauge
+vendor_agroal_blocking_time_average_seconds{datasource="default"} 0.062
+# HELP vendor_agroal_blocking_time_max_seconds Maximum time an application waited to acquire a connection.
+# TYPE vendor_agroal_blocking_time_max_seconds gauge
+vendor_agroal_blocking_time_max_seconds{datasource="default"} 0.062
+# HELP vendor_agroal_blocking_time_total_seconds Total time applications waited to acquire a connection.
+# TYPE vendor_agroal_blocking_time_total_seconds gauge
+vendor_agroal_blocking_time_total_seconds{datasource="default"} 0.062
+# HELP vendor_agroal_creation_count_total Number of created connections.
+# TYPE vendor_agroal_creation_count_total counter
+vendor_agroal_creation_count_total{datasource="default"} 1.0
+# HELP vendor_agroal_creation_time_average_seconds Average time for a connection to be created.
+# TYPE vendor_agroal_creation_time_average_seconds gauge
+vendor_agroal_creation_time_average_seconds{datasource="default"} 0.06
+# HELP vendor_agroal_creation_time_max_seconds Maximum time for a connection to be created.
+# TYPE vendor_agroal_creation_time_max_seconds gauge
+vendor_agroal_creation_time_max_seconds{datasource="default"} 0.06
+# HELP vendor_agroal_creation_time_total_seconds Total time waiting for connections to be created.
+# TYPE vendor_agroal_creation_time_total_seconds gauge
+vendor_agroal_creation_time_total_seconds{datasource="default"} 0.06
+# HELP vendor_agroal_destroy_count_total Number of destroyed connections.
+# TYPE vendor_agroal_destroy_count_total counter
+vendor_agroal_destroy_count_total{datasource="default"} 0.0
+# HELP vendor_agroal_flush_count_total Number of connections removed from the pool, not counting invalid / idle.
+# TYPE vendor_agroal_flush_count_total counter
+vendor_agroal_flush_count_total{datasource="default"} 0.0
+# HELP vendor_agroal_invalid_count_total Number of connections removed from the pool for being invalid.
+# TYPE vendor_agroal_invalid_count_total counter
+vendor_agroal_invalid_count_total{datasource="default"} 0.0
+# HELP vendor_agroal_leak_detection_count_total Number of times a leak was detected. A single connection can be detected multiple times.
+# TYPE vendor_agroal_leak_detection_count_total counter
+vendor_agroal_leak_detection_count_total{datasource="default"} 0.0
+# HELP vendor_agroal_max_used_count Maximum number of connections active simultaneously.
+# TYPE vendor_agroal_max_used_count gauge
+vendor_agroal_max_used_count{datasource="default"} 1.0
+# HELP vendor_agroal_reap_count_total Number of connections removed from the pool for being idle.
+# TYPE vendor_agroal_reap_count_total counter
+vendor_agroal_reap_count_total{datasource="default"} 0.0
+
+
+

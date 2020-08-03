@@ -3,6 +3,7 @@ data:
     port: "8080"
     database: "jdbc:postgresql://postgres-app:5432/postgres"
     postgres.password: "mypassword"
+    my.name: "Evyatar Kafkafi in Kubernetes"
 kind: ConfigMap
 metadata:
     name: my-config
