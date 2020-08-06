@@ -44,7 +44,9 @@ docker-compose up
 ```shell script
 export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
 mvn package -DskipTests
-docker build -f src/main/docker/Dockerfile.jvm -t quarkus-sample-jvm:v1 .
+docker build -f src/main/docker/Dockerfile.jvm -t quarkus-sample-app:compose .
+# the following line is needed for grafana
+chmod a+rw ~/work/allot/quarkus-sample-1/quarkus-sample/src/main/resources/monitoring/
 docker-compose up
 ```
 
