@@ -13,7 +13,7 @@ services:
 
   my-quarkus-app:
     container_name: quarkus-app
-    image: quarkus-sample-jvm:latest
+    image: evyatark/quarkus-sample-app:1.0.0-SNAPSHOT
     entrypoint: /deployments/run-java.sh
     expose:
       - 8080
@@ -38,7 +38,7 @@ services:
   monitoring:
     image: "prom/prometheus"
     network_mode: 'host' # On Linux, this is required to let Prometheus access the other containers.
-    container_name: "super-visor"
+    container_name: "prometheus"
     ports:
       - 9090:9090
     volumes:
