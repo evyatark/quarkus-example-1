@@ -33,6 +33,36 @@ You can run your application in dev mode that enables live coding using:
 ```
 but before that, you must run the docker of the database as explained above.
 
+## building a Native executable
+see here https://quarkus.io/guides/building-native-image for instructions how to install GraalVM.
+
+creating the native executable:
+
+`./mvnw package -Pnative -DskipTests`
+
+Running the native executable:
+
+first run database in a docker container: 
+
+`docker run -d --rm --name=postgresdb  -p5432:5432 --env POSTGRES_PASSWORD=mypassword --volume /home/evyatar/work/quarkus/news-quarkus/src/main/resources/init:/docker-entrypoint-initdb.d/ postgres:11-alpine`
+
+(or
+`docker start postgres-database`
+if you already have this image and you used `docker stop` to stop it.)
+
+Then run native executable: 
+
+`./target/quarkus-sample-1.0.0-SNAPSHOT-runner -Dquarkus.datasource.url=jdbc:postgresql://localhost:5432/postgres`
+
+Creating a Docker image that uses the native executable:
+
+`docker build -f src/main/docker/Dockerfile.native -t evyatark/quarkus-sample-app:native .`
+
+running the docker image (you should have a database image running like above):
+
+`docker run -i --rm -p 8080:8080 --network=host --env QUARKUS_DATASOURCE_URL=jdbc:postgresql://localhost:5432/postgres evyatark/quarkus-sample-app:native`
+
+
 ## Running the application in "staging" mode with docker-compose
 docker-compose can be used to start all services (in this example: the database and the app) in docker on the same ("private") network.
 
