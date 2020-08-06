@@ -12,8 +12,9 @@ services:
       - /home/evyatar/work/quarkus/news-quarkus/src/main/resources/init:/docker-entrypoint-initdb.d/
 
   my-quarkus-app:
+    # use docker build -f src/main/docker/Dockerfile.jvm -t evyatark/quarkus-sample-app:compose .
     container_name: quarkus-app
-    image: evyatark/quarkus-sample-app:1.0.0-SNAPSHOT
+    image: evyatark/quarkus-sample-app:compose
     entrypoint: /deployments/run-java.sh
     expose:
       - 8080
