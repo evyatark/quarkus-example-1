@@ -59,24 +59,57 @@ the second "postgres" is the name of the schema inside the DB.
 In other environment (for example: dev), the jdbc url could be `quarkus.datasource.jdbc.url=jdbc:postgresql://localhost:5432/mydatabase`)
 
 ## Running the application in Kubernetes
-export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
-mvn package -DskipTests
-docker build -f src/main/docker/Dockerfile.jvm -t evyatark/quarkus-sample-jvm:v1 .
-
-push to Docker Hub (username evyatark, usual password):
-docker push evyatark/quarkus-sample-jvm:v1
+#### minikube
+on Ubuntu Development machine:
 
 in a separate terminal: minikube start
+
 in a separate terminal: minikube dashboard  (this opens a browser at http://127.0.0.1:41569/api/v1/namespaces/kubernetes-dashboard/services/http:kubernetes-dashboard:/proxy/#/overview?namespace=default)
+
 to see services, change to http://127.0.0.1:41569/api/v1/namespaces/kubernetes-dashboard/services/http:kubernetes-dashboard:/proxy/#/service?namespace=default
+
 you should see only the "kubernetes" service.
 if you see "quarkus-app" service, use dashboard to remove service named "quarkus-app".
 
-now
+#### database
+```shell script
 kubectl apply -f k8s/config-hero.yaml
 kubectl apply -f k8s/deployment-db.yaml
-kubectl apply -f k8s/deployment-hero.yaml
+````
 
+#### application
+```shell script
+# after deploying the DB service:
+git checkout kubernetes
+export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+mvn clean package -DskipTests
+kubectl create configmap my-file-config --from-file=./k8s/application.properties
+docker build -f src/main/docker/Dockerfile.jvm -t evyatark/quarkus-sample-app:1.0.0-SNAPSHOT .
+docker push evyatark/quarkus-sample-app:1.0.0-SNAPSHOT
+kubectl apply -f ./target/kubernetes/kubernetes.yml
+kubectl patch svc quarkus-sample-app --type='json' -p '[{"op":"replace","path":"/spec/type","value":"NodePort"}]'
+
+```
+
+push to Docker Hub (username evyatark, usual password):
+
+docker push evyatark/quarkus-sample-app:1.0.0-SNAPSHOT
+
+
+Information about the k8s cluster - dashboard web app, or from command line, for example:
+```shell script
+evyatar@evyatar-xps:~/work/allot/quarkus-sample-1/quarkus-sample$ kubectl get pods --output=wide
+NAME                            READY   STATUS    RESTARTS   AGE   IP            NODE       NOMINATED NODE   READINESS GATES
+postgres-app-57d8cd5878-xj2hv   1/1     Running   0          31m   172.18.0.7    minikube   <none>           <none>
+quarkus-app-54d55dd547-4xksm    1/1     Running   0          21s   172.18.0.9    minikube   <none>           <none>
+quarkus-app-54d55dd547-7bz2v    1/1     Running   0          31m   172.18.0.8    minikube   <none>           <none>
+quarkus-app-54d55dd547-bp29j    1/1     Running   0          21s   172.18.0.10   minikube   <none>           <none>
+````
+
+
+
+#### other info
+```shell script
 (now exposing an external IP, based on https://kubernetes.io/docs/tutorials/stateless-application/expose-external-ip-address/)
 kubectl expose deployment quarkus-app --type=LoadBalancer --name=my-service
 (the following is required in minikube only, to get an external IP:)
@@ -98,31 +131,22 @@ IP=$(minikube ip)
 PORT=$(kubectl get service/my-service -o jsonpath="{.spec.ports[*].nodePort}")
 echo $IP:$PORT
 curl $IP:$PORT/ex/hello
-
-
-edited deployment-hero.yaml, changed replicas from 1 to 3.
-then:
-evyatar@evyatar-xps:~/work/allot/quarkus-sample-1/quarkus-sample$ kubectl apply -f k8s/deployment-hero.yaml
-service/quarkus-app unchanged
-deployment.apps/quarkus-app configured
-evyatar@evyatar-xps:~/work/allot/quarkus-sample-1/quarkus-sample$ kubectl get pods --output=wide
-NAME                            READY   STATUS    RESTARTS   AGE   IP            NODE       NOMINATED NODE   READINESS GATES
-postgres-app-57d8cd5878-xj2hv   1/1     Running   0          31m   172.18.0.7    minikube   <none>           <none>
-quarkus-app-54d55dd547-4xksm    1/1     Running   0          21s   172.18.0.9    minikube   <none>           <none>
-quarkus-app-54d55dd547-7bz2v    1/1     Running   0          31m   172.18.0.8    minikube   <none>           <none>
-quarkus-app-54d55dd547-bp29j    1/1     Running   0          21s   172.18.0.10   minikube   <none>           <none>
+```
 
 
 
 ## Metrics
 from command line, use `curl -H "Accept: application/json" http://localhost:8080/metrics/application` to see metrics (of application).
 base, vendor.
+```shell script
+URL=$(minikube service quarkus-sample-app --url)
+echo $URL
+curl $URL/person/age/average
 
-curl localhost:8080/person/age/average
+http --json $URL/metrics/vendor | grep 'hibernate' | grep orm
+http --json $URL/metrics | grep method=averageAge
 
-http --json http://localhost:8080/metrics/vendor | grep 'hibernate' | grep orm
-
-http --json http://localhost:8080/metrics | grep method=averageAge
+```
 
 ## Config
 
