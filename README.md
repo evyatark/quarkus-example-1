@@ -134,10 +134,26 @@ curl $IP:$PORT/ex/hello
 ```
 
 
+## Health
+
+Assuming dev mode, open in browser `http://localhost:8080/health`
+
+It returns a JSON result combining Liveness and Readiness.
+
+Use 
+`http://localhost:8080/health/live` and
+`http://localhost:8080/health/ready`
+to separate them.
+
+See classes MyLivenessHealthCheck and MyReadinessHealthCheck where we defined our own customized health checks.
+In the Readiness health check, I implemented code that returns "not ready" every hour from the 0 minute to the 15th minute.
+
+In Kubernetes, these endpoints are used by Kubernetes.
+When app runs in k8s, you will see each hour (in the first 15 minutes) that the pod is RED, and in that time span, any HTTP requests you send to the app are blocked by k8s!
+
 
 ## Metrics
-from command line, use `curl -H "Accept: application/json" http://localhost:8080/metrics/application` to see metrics (of application).
-base, vendor.
+from command line, use `curl -H "Accept: application/json" http://localhost:8080/metrics/application` to see metrics (of application / base / vendor).
 ```shell script
 URL=$(minikube service quarkus-sample-app --url)
 echo $URL
@@ -145,8 +161,10 @@ curl $URL/person/age/average
 
 http --json $URL/metrics/vendor | grep 'hibernate' | grep orm
 http --json $URL/metrics | grep method=averageAge
-
 ```
+
+The metrics can be scraped by Prometheus and displayed in Grafana.
+This setup currently works in docker-compose (only).
 
 ## Config
 
@@ -185,6 +203,32 @@ curl http://localhost:8080/ex/hello
 (and when finished working with it:)
 docker-compose down
 ```
+
+#### in Dev mode
+run the database in a docker container:
+
+`$ docker run -d --rm --name=postgresdb  -p5432:5432 --env POSTGRES_PASSWORD=mypassword --volume /home/evyatar/work/quarkus/news-quarkus/src/main/resources/init:/docker-entrypoint-initdb.d/ postgres:11-alpine`
+
+in application properties define:
+```
+quarkus.datasource.url = jdbc:postgresql://localhost:5432/postgres
+# and comment these lines:
+#quarkus.kubernetes-config.enabled=true
+#quarkus.kubernetes-config.config-maps=my-file-config
+```
+
+then run `mvn clean quarkus:dev`
+and open `http://localhost:8080/index.html` in a browser.
+
+Click this URL: `http://localhost:8080/ex/hello`
+
+and see the result is "Hello World!"
+
+change in src/main/resources/application.properties: `my.name=Evyatar`  (without the comment # character!)
+
+and refresh the URL: `http://localhost:8080/ex/hello`
+
+You will see the result changes to "Hello Evyatar"
 
 ## Packaging and running the application
 
