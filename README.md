@@ -73,6 +73,11 @@ to see services, change to http://127.0.0.1:41569/api/v1/namespaces/kubernetes-d
 you should see only the "kubernetes" service.
 if you see "quarkus-app" service, use dashboard to remove service named "quarkus-app".
 
+The following operations can be done only once. After that, when doing `minikube stop` and then `minikube start`, 
+the definitions of all deployments, pods, services, etc still exist in the k8s cluster!
+However, if you change deployment descriptors you should apply them (`kubectl apply -f ...`).
+If you change Java code, and you want to see them in action, you must do `docker build` and `docker push`.
+
 #### database
 ```shell script
 kubectl apply -f k8s/config-hero.yaml
