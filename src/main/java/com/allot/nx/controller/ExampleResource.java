@@ -26,14 +26,14 @@ public class ExampleResource {
     @Inject
     PersonService personService;
 
-    @ConfigProperty(defaultValue = "World!", name = "my.name")
+    @ConfigProperty(name = "my.name", defaultValue = "World!")
     String name ;
 
     @GET
     @Path("/hello")
     @Produces(MediaType.TEXT_PLAIN)
     public String hello() {
-        return "hello " + name + "\n";
+        return "Hello " + name + "\n";
     }
 
     /**

@@ -151,16 +151,40 @@ http --json $URL/metrics | grep method=averageAge
 ## Config
 
 in Java code:
+```java
     @ConfigProperty(defaultValue = "World!", name = "my.name")
     String name ;
+```
 
-in docker-compose.yml added:
-environment:
-      MY_NAME: "Evyatar"
+so the value of `name` is defined in configuration properties.
 
+and `curl $URL/ex/hello` will return "Hello ..." depending on the value configured.
+
+#### In Kubernetes
+this value is configured in ./k8s/application.properties
+
+#### In docker-compose
+this value is configured in docker-compose.yml:
+
+```yaml
+    environment:
+      MY_NAME: "Guy"
+
+```
+so `curl localhost:8080/ex/hello`
+will return the value
+`Hello Guy`
+
+
+Running docker-compose:
+```
 docker-compose up
 then
-http http://localhost:8080/ex/hello
+curl http://localhost:8080/ex/hello
+...
+(and when finished working with it:)
+docker-compose down
+```
 
 ## Packaging and running the application
 
@@ -170,6 +194,8 @@ Be aware that it’s not an _über-jar_ as the dependencies are copied into the 
 
 The application is now runnable using `java -jar target/quarkus-sample-1.0.0-SNAPSHOT-runner.jar`.
 
+for development, run `mvn quarkus:dev`. This runs the app and will also do "hot reload" automatically when you change code.
+ 
 ## Creating a native executable
 
 You can create a native executable using: `./mvnw package -Pnative`.
